@@ -1,0 +1,223 @@
+/* calculator/static/css/styles.css */
+
+html, body {
+  --size: 1.5rem;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: Palatino, Helvetica, arial, sans-serif;
+  overflow: hidden;
+  background-color: #191E2B;
+}
+
+main {
+  font-size: 5vmin;
+  position: relative;
+  z-index: 2;
+}
+
+main p {
+  color: white;
+  text-shadow:
+    0 -1px 1px #000, 1px -1px 1px #000, 1px 0 1px #000,
+    1px 1px 1px #000, 0 1px 1px #000, -1px 1px 1px #000,
+    -1px 0 1px #000, -1px -1px 1px #000;
+}
+
+output {
+  display: flex;
+  justify-content: center;
+  height: calc(var(--size) * 1.5 + 0.5rem);
+  overflow: hidden;
+}
+
+output span {
+  font-family: monospace, monospace;
+  background: rgb(233, 233, 233);
+  color: black;
+  position: relative;
+  padding: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+  animation: show 0.125s linear 1;
+  animation-fill-mode: forwards;
+  font-size: var(--size);
+  height: calc(var(--size) * 1.5);
+  line-height: calc(var(--size) * 1.5);
+  border-radius: 0.25rem;
+  width: 0;
+  margin: 0;
+}
+
+output span.separator::before { content: ","; }
+html[lang="es"] output span.separator::before { content: "."; }
+html[lang="ru"] output span.separator::before { content: " "; }
+html[lang="hi"] output span.separator::before { content: ","; }
+
+
+html[lang="ru"] output span.currency,
+html[lang="es"] output span.currency {
+  order: 1;
+}
+
+@keyframes show {
+  100% {
+    width: var(--size);
+    margin: calc(var(--size) * 0.0625);
+  }
+}
+
+span.u0 { animation-delay: 0.0000000000s; }
+span.u1 { animation-delay: 0.0022739251s; }
+span.u2 { animation-delay: 0.0277392510s; }
+span.u3 { animation-delay: 0.2773925104s; }
+span.u4 { animation-delay: 2.7739251040s; }
+span.u5 { animation-delay: 27.739251040s; }
+span.u6 { animation-delay: 277.39251040s; }
+span.u7 { animation-delay: 2773.9251040s; }
+span.u8 { animation-delay: 27739.251040s; }
+
+output span.symbol {
+  display: inline-block;
+}
+
+@keyframes animate {
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+span.number::before {
+  content: "0\A 1\A 2\A 3\A 4\A 5\A 6\A 7\A 8\A 9";
+  animation: animate 10s steps(10, end) infinite;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* Animation durations for ~$1,112 per second */
+span.u0::before { animation-duration: 0.0089928s; }
+span.u1::before { animation-duration: 0.0899280s; }
+span.u2::before { animation-duration: 0.8992800s; }
+span.u3::before { animation-duration: 8.9928000s; }
+span.u4::before { animation-duration: 89.928000s; }
+span.u5::before { animation-duration: 899.28000s; }
+span.u6::before { animation-duration: 8992.8000s; }
+span.u7::before { animation-duration: 89928.000s; }
+span.u8::before { animation-duration: 899280.00s; }
+
+/* BUBBLE ANIMATION */
+@keyframes pop {
+  100% {
+    transform: translate(0, -110vh);
+  }
+}
+
+aside {
+  top: 100vh;
+  position: absolute;
+  padding: 1.5vmin 2vmin;
+  font-size: clamp(1rem, 2.5vw, 1.375rem);
+  max-width: clamp(150px, 25vw, 350px);
+  border-radius: 1vmin;
+  z-index: 1;
+  animation-name: pop;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+  box-shadow: 0 0 2vmin rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  line-height: 1.3;
+  transform: translate(0, 0);
+}
+
+aside b {
+  display: block;
+  font-size: 0.9em;
+  color: #444;
+  margin-bottom: 0.5em;
+}
+
+aside.color0 { background: #ffadad; }
+aside.color1 { background: #ffd6a5; }
+aside.color2 { background: #fdffb6; }
+aside.color3 { background: #caffbf; }
+aside.color4 { background: #beeeef; }
+aside.color5 { background: #a0c4ff; }
+aside.color6 { background: #bdb2ff; }
+aside.color7 { background: #ffc6ff; }
+
+/* FOOTER AND BUTTONS */
+footer {
+  position: absolute;
+  right: 0.5rem;
+  bottom: 0.5rem;
+  font-size: 0.875rem;
+  z-index: 5;
+}
+
+footer a {
+  color: #9ac;
+  text-decoration: none;
+}
+a:hover { text-decoration: underline; }
+
+button {
+  position: absolute;
+  top: 1rem;
+  border-radius: 0.25rem;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  z-index: 5;
+}
+
+button svg { width: 3rem; height: 3rem; }
+button .in-light-mode { display: none; }
+button#nightmode { left: 1rem; }
+button#language { right: 1rem; color: #eee; }
+
+#language-popup {
+  position: absolute;
+  top: 4.25rem;
+  right: 1rem;
+  flex-direction: column;
+  background: #222;
+  padding: 0;
+  overflow: hidden;
+  border-radius: 0.25rem;
+  display: none;
+  z-index: 5;
+}
+#language-popup.active { display: flex; }
+
+#language-popup button {
+  position: relative;
+  color: #eee;
+  text-align: left;
+  height: 3rem;
+  min-width: 150px;
+  top: auto;
+  font-size: 1.125em;
+  padding: 0 0.5rem;
+}
+#language-popup button:hover { background: rgba(255, 255, 255, 0.1); }
+#language-popup button:active { background: rgba(255, 255, 255, 0.2); }
+
+/* MEDIA QUERIES */
+@media all and (min-width:500px) { body { --size: 2.5rem; } }
+@media all and (min-width:750px) { body { --size: 3.5rem; } }
+@media all and (min-width:1000px) { body { --size: 4.5rem; } }
+@media all and (min-width:1200px) { body { --size: 5.5rem; } }
+
+/* LIGHT MODE */
+.light-mode { background-color: white; color: black; }
+.light-mode main p { color: black; text-shadow: none; }
+.light-mode footer a { color: #00f; }
+.light-mode button .in-light-mode { display: block; }
+.light-mode button .in-dark-mode { display: none; }
+.light-mode button#language { color: #222; }
